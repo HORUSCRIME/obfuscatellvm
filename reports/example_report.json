@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "input": "examples/hello.c",
+  "output": "hello_obf",
+  "target": "native",
+  "profile": "balanced",
+  "passes": {
+    "string_encryption": true,
+    "junk_insertion": true,
+    "symbol_renaming": true
+  },
+  "config": {
+    "junk_density": 0.1,
+    "cycles": 2,
+    "seed": 12345
+  },
+  "metrics": {
+    "input_size": 1247,
+    "output_size": 1856,
+    "strings_encrypted": 5,
+    "junk_blocks_added": 3,
+    "symbols_renamed": 8
+  },
+  "performance": {
+    "processing_time_seconds": 2.34
+  },
+  "watermark": "user@company.com",
+  "timestamp": "2024-01-01T12:00:00Z"
+}
