@@ -1,0 +1,126 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install LLVM 16
+      run: |
+        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main" | sudo tee -a /etc/apt/sources.list
+        sudo apt-get update
+        sudo apt-get install -y llvm-16 llvm-16-dev clang-16 lld-16 cmake python3-pip
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Python dependencies
+      run: |
+        pip install click jinja2 pytest pytest-cov black mypy
+        
+    - name: Configure CMake
+      run: |
+        export LLVM_DIR=/usr/lib/llvm-16
+        mkdir build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+        
+    - name: Build
+      run: |
+        cd build
+        make -j$(nproc)
+        
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux-build
+        path: build/
+
+  build-windows:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup LLVM
+      run: |
+        choco install llvm --version=16.0.6
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Python dependencies
+      run: |
+        pip install click jinja2 pytest pytest-cov black mypy
+        
+    - name: Configure CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 17 2022"
+        
+    - name: Build
+      run: |
+        cd build
+        cmake --build . --config Release
+        
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure -C Release
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-build
+        path: build/
+
+  cross-compile:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        docker build -f docker/dev.Dockerfile -t obfuscatellvm-dev .
+        
+    - name: Cross-compile for Windows
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace obfuscatellvm-dev bash -c "
+          cd /workspace
+          mkdir build-mingw && cd build-mingw
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=../tooling/mingw-toolchain.cmake
+          make -j\$(nproc)
+        "
+        
+    - name: Test obfuscation pipeline
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace obfuscatellvm-dev bash -c "
+          cd /workspace
+          python src/cli/obfuscatellvm.py --input examples/hello.c --output hello_obf --profile balanced --report report.html --verbose
+          ls -la hello_obf report.html
+        "
+        
+    - name: Upload cross-compile artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: cross-compile-artifacts
+        path: |
+          build-mingw/
+          hello_obf
+          report.html

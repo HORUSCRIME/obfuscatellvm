@@ -1,0 +1,21 @@
+{
+  "name": "maximum",
+  "description": "Maximum obfuscation for strongest protection",
+  "passes": {
+    "string_encryption": true,
+    "junk_insertion": true,
+    "symbol_renaming": true
+  },
+  "config": {
+    "junk_density": 0.3,
+    "cycles": 3,
+    "preserve_debug": false,
+    "cfg_flatten": true,
+    "opaque_predicates": true,
+    "virtualize": true
+  },
+  "performance": {
+    "expected_size_increase": "100-200%",
+    "expected_runtime_overhead": "200-500%"
+  }
+}

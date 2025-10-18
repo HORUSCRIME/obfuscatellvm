@@ -1,0 +1,17 @@
+{
+  "name": "enterprise_secure",
+  "description": "Enterprise-grade security profile",
+  "author": "security_team",
+  "passes": {
+    "string_encryption": true,
+    "junk_insertion": true,
+    "symbol_renaming": true
+  },
+  "config": {
+    "junk_density": 0.15,
+    "cycles": 3,
+    "cfg_flatten": true,
+    "opaque_predicates": true,
+    "virtualize": true
+  }
+}

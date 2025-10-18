@@ -1,0 +1,18 @@
+{
+  "name": "minimal",
+  "description": "Minimal obfuscation for basic protection",
+  "passes": {
+    "string_encryption": false,
+    "junk_insertion": true,
+    "symbol_renaming": true
+  },
+  "config": {
+    "junk_density": 0.0,
+    "cycles": 1,
+    "preserve_debug": false
+  },
+  "performance": {
+    "expected_size_increase": "5-10%",
+    "expected_runtime_overhead": "<5%"
+  }
+}

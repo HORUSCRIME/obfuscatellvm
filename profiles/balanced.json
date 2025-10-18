@@ -1,0 +1,21 @@
+{
+  "name": "balanced",
+  "description": "Balanced obfuscation for good protection with reasonable overhead",
+  "passes": {
+    "string_encryption": true,
+    "junk_insertion": true,
+    "symbol_renaming": true
+  },
+  "config": {
+    "junk_density": 0.1,
+    "cycles": 2,
+    "preserve_debug": false,
+    "cfg_flatten": true,
+    "opaque_predicates": true,
+    "virtualize": false
+  },
+  "performance": {
+    "expected_size_increase": "30-50%",
+    "expected_runtime_overhead": "50-100%"
+  }
+}

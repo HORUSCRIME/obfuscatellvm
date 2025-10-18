@@ -1,0 +1,114 @@
+{
+  "timestamp": "2025-10-17T15:05:37Z",
+  "profiles": {
+    "minimal": {
+      "hello": {
+        "profile": "minimal",
+        "input_file": "examples/hello.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "math": {
+        "profile": "minimal",
+        "input_file": "examples/math.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "simple_test": {
+        "profile": "minimal",
+        "input_file": "examples/simple_test.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      }
+    },
+    "balanced": {
+      "hello": {
+        "profile": "balanced",
+        "input_file": "examples/hello.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "math": {
+        "profile": "balanced",
+        "input_file": "examples/math.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "simple_test": {
+        "profile": "balanced",
+        "input_file": "examples/simple_test.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      }
+    },
+    "maximum": {
+      "hello": {
+        "profile": "maximum",
+        "input_file": "examples/hello.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "math": {
+        "profile": "maximum",
+        "input_file": "examples/math.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "simple_test": {
+        "profile": "maximum",
+        "input_file": "examples/simple_test.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      }
+    },
+    "av-safe": {
+      "hello": {
+        "profile": "av-safe",
+        "input_file": "examples/hello.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "math": {
+        "profile": "av-safe",
+        "input_file": "examples/math.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      },
+      "simple_test": {
+        "profile": "av-safe",
+        "input_file": "examples/simple_test.c",
+        "iterations": 2,
+        "times": [],
+        "sizes": [],
+        "success_rate": 0.0
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 24,
+    "successful_tests": 0,
+    "overall_success_rate": 0.0
+  }
+}
